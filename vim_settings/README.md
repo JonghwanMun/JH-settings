@@ -8,7 +8,8 @@ Vundle is a convenient package manager for VIM.
   ```
 
 ### Easy Setting
-  Install [python-vimrc](https://github.com/ets-labs/python-vimrc)
+  + Install [python-vimrc](https://github.com/ets-labs/python-vimrc)
+  + Use vimrc_python_vimrc_revised as ~/.vimrc
 
 ### List of Useful Flugins
   + `scrooloose/nerdtree`: Project and file navigation
