@@ -1,0 +1,54 @@
+set cin
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set textwidth=80
+"set expandtab
+set modeline
+set smartindent
+set ai
+set nows
+set hls
+set cursorline
+set incsearch
+set ru
+set magic
+set nuw=5
+set ls=2
+set esckeys
+set backspace=indent,eol,start
+set history=1000
+set iskeyword-=_
+set tags+=/usr/include/tags
+
+set nospell spelllang=en
+" Pathogen load
+filetype off
+call pathogen#infect()
+call pathogen#helptags()
+" Pathogen done 
+
+set t_Co=256
+filetype plugin indent on
+syntax on
+colorscheme peachpuff
+"colorscheme molokai
+set mouse=a
+highlight Comment cterm=bold
+highlight CursorLine cterm=bold term=none ctermbg=233
+highlight ColorColumn ctermbg=233
+set colorcolumn=80
+
+" 마지막 편집 위치 복원 기능
+au BufReadPost *
+\ if line("'\"")>0&& line("'\"")<=line("$")|
+\   exe "norm g`\"" |
+\ endif
+
+ab Q q
+ab Q! q!
+ab W w
+ab Wq wq 
+ab WQ wq 
+ab wQ wq 
+ab E e
