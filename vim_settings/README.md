@@ -1,4 +1,4 @@
-There are two package management tools: Pathogen, Vundle. <br />
+There are two packages management tools: Pathogen, Vundle. <br />
 I prefer to use [Vundle](https://github.com/VundleVim/Vundle.vim)
 
 ### Install Vundle
