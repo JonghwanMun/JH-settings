@@ -7,7 +7,7 @@ Vundle is a convenient package manager for VIM.
   git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
   ```
 
-### Easy Setting
+### Easy Setting for Python, C, C++
   + Install [python-vimrc](https://github.com/ets-labs/python-vimrc)
     * Run `sh -c "$(curl -fsSL https://raw.githubusercontent.com/ets-labs/python-vimrc/master/setup.sh)"`
   + Use vimrc_python_vimrc_revised as ~/.vimrc
