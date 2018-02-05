@@ -2,13 +2,14 @@ There are two packages management tools: Pathogen, Vundle. <br />
 I prefer to use [Vundle](https://github.com/VundleVim/Vundle.vim)
 
 ### Install Vundle
-Vundle is a convenient package manager for VIM.
+Vundle is a convenient package manager for VIM. (You do not need to install Vundle.)
   ```
   git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
   ```
 
 ### Easy Setting for Python, C, C++
   + Install [python-vimrc](https://github.com/ets-labs/python-vimrc)
+    * Delete existing .vim folder `rm -r ~/.vim`
     * Run `sh -c "$(curl -fsSL https://raw.githubusercontent.com/ets-labs/python-vimrc/master/setup.sh)"`
   + Use vimrc_python_vimrc_revised as ~/.vimrc
   + Install [YouCompleteMe](https://github.com/Valloric/YouCompleteMe)
