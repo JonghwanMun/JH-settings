@@ -35,7 +35,6 @@ call vundle#begin()
     Plugin 'fisadev/FixedTaskList.vim'          " Pending tasks list
     Plugin 'rosenfeld/conque-term'              " Consoles as buffers
     Plugin 'tpope/vim-surround'                 " Parentheses, brackets, quotes, XML tags, and more
-    Plugin 'flazz/vim-colorschemes'             " Colorschemes
 
     "-------------------=== Snippets support ===--------------------
     Plugin 'garbas/vim-snipmate'                " Snippets manager
@@ -52,6 +51,10 @@ call vundle#begin()
     "-------------------=== Python  ===-----------------------------
     Plugin 'klen/python-mode'                   " Python mode (docs, refactor, lints...)
     Plugin 'scrooloose/syntastic'               " Syntax checking plugin for Vim
+
+    "-------------------=== Color scheme ===------------------------
+    Plugin 'flazz/vim-colorschemes'             " Colorschemes
+    "Plugin 'lsdr/monokai'                       " monokai color scheme
 
 call vundle#end()                           " required
 filetype on
@@ -73,7 +76,7 @@ set ttyfast                                 " terminal acceleration
 set tabstop=4                               " 4 whitespaces for tabs visual presentation
 set shiftwidth=4                            " shift lines by 4 spaces
 set smarttab                                " set tabs for a shifttabs logic
-set expandtab                               " expand tabs into spaces
+"set expandtab                               " expand tabs into spaces
 set autoindent                              " indent when moving to the next line while writing code
 
 set cursorline                              " shows line under the cursor's line
@@ -126,7 +129,7 @@ let g:airline_powerline_fonts=1
 "=====================================================
 let g:tagbar_autofocus=0
 let g:tagbar_width=42
-autocmd VimEnter *.py :call tagbar#autoopen(1)
+"autocmd VimEnter *.py :call tagbar#autoopen(1)     " Automatically open when opening the file
 "autocmd BufWinLeave *.py :TagbarClose
 nmap ? :TagbarToggle<CR>
 
@@ -157,7 +160,7 @@ let g:pymode_python='python'
 let g:syntastic_python_python_exec='python'
 
 " common
-let g:pymode_options_max_line_length=100
+"let g:pymode_options_max_line_length=100
 
 " rope
 let g:pymode_rope=0
@@ -173,8 +176,8 @@ let g:pymode_doc=0
 let g:pymode_doc_key='K'
 
 " lints
-let g:pymode_lint=1
-let g:pymode_lint_on_fly=1
+let g:pymode_lint=0
+"let g:pymode_lint_on_fly=1
 "let g:pymode_lint_checkers=['pep8']
 "let g:pymode_lint_options_pep8 =
 "    \ {'max_line_length': g:pymode_options_max_line_length}
@@ -244,9 +247,8 @@ let g:syntastic_python_checkers=['flake8', 'pydocstyle', 'python']
 
 " YouCompleteMe
 set completeopt-=preview
-
 let g:ycm_global_ycm_extra_conf='~/.vim/ycm_extra_conf.py'
-let g:ycm_confirm_extra_conf=0
+let g:ycm_confirm_extra_conf=1
 
 nmap <leader>g :YcmCompleter GoTo<CR>
 nmap <leader>d :YcmCompleter GoToDefinition<CR>
