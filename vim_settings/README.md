@@ -45,3 +45,6 @@ I prefer to use [Vundle](https://github.com/VundleVim/Vundle.vim)
   + Install [YouCompleteMe](https://github.com/Valloric/YouCompleteMe)
     * Run `~/.vim/bundle/YouCompleteMe/install.py --clang-completer`
     * If the version of VIM is lower than 7.4.1+, follow the [instruction](https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source) in YouCompleMe
+
+### Check python version to compile VIM
+ + In vim ` :python -c "import sys; print(sys.version)" `
