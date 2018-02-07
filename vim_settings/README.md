@@ -1,8 +1,8 @@
 There are two packages management tools: Pathogen, Vundle. <br />
-I prefer to use [Vundle](https://github.com/VundleVim/Vundle.vim)
+This vim setting is based on [Vundle](https://github.com/VundleVim/Vundle.vim)
  
 ### Prerequisite
-#### [Deprecated, Not working] Install Anaconda with python 3.5
+#### [Deprecated, VIM can not recognize python in Anaconda] Install Anaconda with python 3.5
   + Note that VIM is not compatible with ptyhon 3.6+.
     * Latest Anaconda includes python 3.6
   + Thus, install Anaconda 4.2.0. version
