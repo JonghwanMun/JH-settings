@@ -15,21 +15,12 @@ Vundle is a convenient package manager for VIM. (You do not need to install Vund
   + Install [YouCompleteMe](https://github.com/Valloric/YouCompleteMe)
     * Run `~/.vim/bundle/YouCompleteMe/install.py --clang-completer`
     * If the version of VIM is lower than 7.4.1+, follow the [instruction](https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source) in YouCompleMe
-    * To install VIM 8.0, use following configuration
+    * To install VIM 8.0, use following configuration (note revise with-python3-config-dir path)
     ```sh
     cd ~
     git clone https://github.com/vim/vim.git
     cd vim
-    ./configure --with-features=huge \
-                --enable-multibyte \
-                --enable-rubyinterp=yes \
-                --enable-python3interp=yes \
-                --with-python3-config-dir=/home/jonghwan/anaconda3/lib/python3.6/config-3.6m-x86_64-linux-gnu \
-                --enable-perlinterp=yes \
-                --enable-luainterp=yes \
-                --enable-gui=gtk2 \
-                --enable-cscope \
-                --prefix=/usr/local
+    ./configure --with-features=huge --enable-multibyte --enable-rubyinterp=yes --enable-python3interp=yes --with-python3-config-dir=/home/jonghwan/anaconda3/lib/python3.6/config-3.6m-x86_64-linux-gnu --enable-gui=gtk2 --enable-cscope --prefix=/usr/local
     make VIMRUNTIMEDIR=/usr/local/share/vim/vim80
     ```
 
