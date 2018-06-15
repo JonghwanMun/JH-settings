@@ -2,14 +2,7 @@ There are two packages management tools: Pathogen, Vundle. <br />
 This vim setting is based on [Vundle](https://github.com/VundleVim/Vundle.vim)
  
 ### Prerequisite
-#### [Deprecated, VIM can not recognize python in Anaconda] Install Anaconda with python 3.5
-+ Note that VIM is not compatible with ptyhon 3.6+.
-    * Latest Anaconda includes python 3.6
-+ Thus, install Anaconda 4.2.0. version
-    ```sh
-    wget https://repo.continuum.io/archive/Anaconda2-4.2.0-Linux-x86_64.sh   (for 32-bit)
-    wget https://repo.continuum.io/archive/Anaconda2-4.2.0-Linux-x86.sh      (for 32-bit)
-    ```
+#### [Deprecated] VIM fails to recognize python in Anaconda, instead use system python.
 
 #### Install latest version of VIM
 + Refer to [instruction](https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source) in YouCompleMe
@@ -24,7 +17,7 @@ This vim setting is based on [Vundle](https://github.com/VundleVim/Vundle.vim)
     git clone https://github.com/vim/vim.git
     cd vim
     ./configure --with-features=huge --enable-multibyte --enable-pythoninterp=yes --enable-gui=gtk2 --enable-cscope --prefix=/usr/local --with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu
-    make VIMRUNTIMEDIR=/usr/local/share/vim/vim80
+    make VIMRUNTIMEDIR=/usr/local/share/vim/vim81
     sudo checkinstall
     ```    
 + Third, set vim as default editor with `update-alternatives`
