@@ -1,0 +1,21 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# data
+*.hdf5
+*.json
+*.zip
+
+# folders
+results
+tensorboard
+
+# not necessary codes
+src/experiment/options
+
+# logs
+*.log
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints*

@@ -1,0 +1,22 @@
+test_loader:
+    split: "test"
+    batch_size: 1
+    annotation_path: ""
+    video_feature_path: "data/ActivityNet/feats/sub_activitynet_v1-3.c3d.hdf5"
+    K: 128
+    sampling_stride: 8
+    event_tIou_threshold: 0.5
+    caption_tIou_threshold: 0.8
+    max_length: 25
+    word_frequency_threshold: 1
+val_loader:
+    split: "val_1"
+    batch_size: 1
+    annotation_path: "data/captions/annotations/val_1.json"
+    video_feature_path: "data/ActivityNet/feats/sub_activitynet_v1-3.c3d.hdf5"
+    K: 128
+    sampling_stride: 8
+    event_tIou_threshold: 0.5
+    caption_tIou_threshold: 0.8
+    max_length: 25
+    word_frequency_threshold: 1
