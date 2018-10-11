@@ -6,6 +6,6 @@ git clone https://github.com/gpakosz/.tmux.git
 ln -s -f .tmux/.tmux.conf
 cp .tmux/.tmux.conf.local .
 ```
-+ Open .tmux.local and uncomment followings
++ Open .tmux.local and uncomment following lines
 	* set -g mouse on (line 279)
-	* only use C-a instead both using C-a & C-b (line 27-291)
+	* only use C-a instead both using C-a & C-b (line 287-291)
