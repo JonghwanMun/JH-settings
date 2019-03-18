@@ -15,6 +15,9 @@ class AbstractNetwork(nn.Module):
     def __init__(self, config, logger=None, verbose=False):
         super(AbstractNetwork, self).__init__() # Must call super __init__()
 
+        # update configuration
+        config = self.model_specific_config_update(config)
+
         self.optimizer, self.sample_data, self.models_to_update = None, None, None
         self.training_mode = True
         self.evaluate_after = config["evaluation"].get("evaluate_after", 1)
@@ -36,11 +39,12 @@ class AbstractNetwork(nn.Module):
                 config["misc"]["result_dir"], "config.yml")
             io_utils.write_yaml(save_config_path, config)
         self.config = config
+        # prepare logging
         if logger is not None:
             self.log = logger.info
-            logger.info(json.dumps(config, indent=2))
         else:
             self.log = print
+        self.log(json.dumps(config, indent=2))
 
     """ methods for forward/backward """
     @abstractmethod
@@ -93,10 +97,6 @@ class AbstractNetwork(nn.Module):
         if self.it % self.update_every == 0:
             self.optimizer.step()
             self.optimizer.zero_grad() # set gradients as zero before updating the network
-
-        if self.null_feats is not None:
-            for k,v in self.null_feats.items():
-                del v
 
     def forward_update(self, net_inps, gts):
         """ Forward and update the network at the same time
@@ -175,7 +175,7 @@ class AbstractNetwork(nn.Module):
         pass
 
     """ methods for checkpoint """
-    def load_checkpoint(self, ckpt_path, logger=None):
+    def load_checkpoint(self, ckpt_path, load_crit=False):
         """ Load checkpoint of the network.
         Args:
             ckpt_path: checkpoint file path; str
@@ -184,20 +184,21 @@ class AbstractNetwork(nn.Module):
         model_state_dict = torch.load(ckpt_path, map_location=lambda storage, loc: storage)
         self.log("[{}] are in checkpoint".format("|".join(model_state_dict.keys())))
         for m in model_state_dict.keys():
-            if m == "criterion": continue
+            if load_crit and m == "criterion": continue
             if m in self.model_list:
                 self[m].load_state_dict(model_state_dict[m])
                 self.log("{} is initialized from checkpoint".format(m))
             else:
                 self.log("{} is not in {}".format(m, "|".join(self.model_list)))
 
-
-    def save_checkpoint(self, ckpt_path, logger=None):
+    def save_checkpoint(self, ckpt_path, save_crit=False):
         """ Save checkpoint of the network.
         Args:
             ckpt_path: checkpoint file path
         """
         model_state_dict = {m:self[m].state_dict() for m in self.model_list if m != "criterion"}
+        if save_crit:
+            model_state_dict["criterion"] = self["criterion"].state_dict()
         torch.save(model_state_dict, ckpt_path)
 
         self.log("Checkpoint [{}] is saved in {}".format(
@@ -226,7 +227,7 @@ class AbstractNetwork(nn.Module):
         """
         pass
 
-    def print_status(self, epoch, logger=None, mode="Train", enter_every=2):
+    def print_status(self, epoch, mode="Train", enter_every=2):
         """ Print current metric scores or losses (status).
             You are encouraged to implement this method.
         Args:
@@ -254,18 +255,18 @@ class AbstractNetwork(nn.Module):
         for k,v in self.counters.items():
             v.reset()
 
-    def print_counters_info(self, epoch, logger, on="Train"):
-        if on != "Train" and epoch < self.evaluate_after:
+    def print_counters_info(self, epoch, logger, mode="Train"):
+        if mode != "Train" and epoch < self.evaluate_after:
             self.reset_counters()
             return
 
-        txt = "[{}] {} epoch".format(on, epoch)
+        txt = "[{}] {} epoch".format(mode, epoch)
         for k,v in self.counters.items():
             txt += ", {} = {:.4f}".format(v.get_name(), v.get_average())
         logger.info(txt)
 
         if self.use_tf_summary:
-            self.write_counter_summary(epoch, on)
+            self.write_counter_summary(epoch, mode)
 
         # reset counters
         self.reset_counters()
@@ -328,11 +329,11 @@ class AbstractNetwork(nn.Module):
                     for name, param in self[m].named_parameters():
                         yield param
 
-    def cpu_mode(self, logger=None):
+    def cpu_mode(self):
         sel.log("Setting cpu() for [{}]".format(" | ".join(self.model_list)))
         self.cpu()
 
-    def gpu_mode(self, logger=None):
+    def gpu_mode(self):
         #cudnn.benchmark = False
         if torch.cuda.is_available():
             self.log("Setting gpu() for [{}]".format(" | ".join(self.model_list)))
@@ -340,12 +341,12 @@ class AbstractNetwork(nn.Module):
         else:
             raise NotImplementedError("Available GPU not exists")
 
-    def train_mode(self, logger=None):
+    def train_mode(self):
         self.train()
         self.training_mode = True
         self.log("Setting train() for [{}]".format(" | ".join(self.model_list)))
 
-    def eval_mode(self, logger=None):
+    def eval_mode(self):
         self.eval()
         self.training_mode = False
         self.log("Setting eval() for [{}]".format(" | ".join(self.model_list)))
@@ -360,13 +361,5 @@ class AbstractNetwork(nn.Module):
     def __setitem__(self, key, value):
         return setattr(self, key, value)
 
-    @staticmethod
-    def model_specific_config_update(config):
+    def model_specific_config_update(self, config):
         return config
-
-    @staticmethod
-    def override_config_from_dataset(config, loader, mode="Train"):
-        if mode == "Test":
-            config["model"]["resume"] = True
-        return config
-

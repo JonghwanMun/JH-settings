@@ -4,7 +4,6 @@ import string
 import numpy as np
 
 import torch
-from src.evaluation.eval_densecap import ANETcaptions
 from src.utils import net_utils
 
 FONTSIZE  = 5
@@ -97,8 +96,7 @@ def tiou(interval_1, interval_2):
     start, end = interval_2[0], interval_2[1]
     intersection = max(0, min(end, end_i) - max(start, start_i))
     union = min(max(end, end_i) - min(start, start_i), end-start + end_i-start_i)
-    tiou = float(intersection) / (union + 1e-8)
-    return tiou
+    return float(intersection) / (union + 1e-8)
 
 def iou(interval, featstamps, return_index=False):
     """
@@ -242,13 +240,3 @@ def nms_all_predictions(preds, overlap=0.7):
         for npp,nsc in zip(new_pp,new_sc):
             new_preds[vid].append({"timestamp": npp, "eventness": nsc})
     return new_preds
-
-
-""" Methods related to evalutation """
-def get_proposal_evaluator(gt_path, tious, max_proposals):
-    return ANETcaptions(ground_truth_filenames=gt_path, prediction_filename=None,
-        tious=tious, max_proposals=max_proposals, verbose=False)
-
-def get_densecap_evaluator(gt_path, tious, max_proposals):
-    return ANETcaptions(ground_truth_filenames=gt_path, prediction_filename=None,
-        tious=tious, max_proposals=max_proposals, verbose=True)

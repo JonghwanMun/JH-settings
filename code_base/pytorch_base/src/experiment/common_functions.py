@@ -82,7 +82,7 @@ def prepare_experiment(params):
     return M, D, config
 
 def factory_model(config, M, dset, logger=None):
-    config = M.model_specific_config_update(config)
+    #config = M.model_specific_config_update(config)
     net = M(config, logger=logger)
     net.bring_loader_info(dset)
 
@@ -122,7 +122,7 @@ def create_logger(config, logger_name, log_path):
 
 """ evaluate the network """
 def test(config, loader, net, epoch,
-         it_logger=None, epoch_logger=None, on="Test"):
+         epoch_logger=None, mode="Test"):
 
     with torch.no_grad():
         net.eval_mode() # set network as evaluation mode
@@ -130,29 +130,21 @@ def test(config, loader, net, epoch,
 
         """ Testing network """
         ii = 1
-        for batch in tqdm(loader, desc="{}".format(on)):
+        for batch in tqdm(loader, desc="{}".format(mode)):
             # forward the network
             net_inps, gts = net.prepare_batch(batch)
             outputs = net(net_inps) # only forward
-            """
-            if on == "Valid":
-                outputs = net.compute_loss(net_inps, gts)
-            elif on == "Test":
-                outputs = net(net_inps) # only forward
-            else:
-                raise NotImplementedError()
-            """
 
             # Compute status for current batch: loss, evaluation scores, etc
-            net.compute_status(outputs[0], gts, mode=on, logger=it_logger)
+            net.compute_status(outputs[0], gts)
 
             ii += 1
             if config["misc"]["debug"] and (ii > 100):
                 break
             # end for batch in loader
 
-        net.save_results(None, "epoch_{:03d}".format(epoch), mode=on)
-        net.print_counters_info(epoch, epoch_logger, on=on)
+        net.save_results(None, "epoch_{:03d}".format(epoch), mode=mode)
+        net.print_counters_info(epoch, epoch_logger, mode=mode)
 
 """ Methods for debugging """
 def one_step_forward(L, net, logger):
