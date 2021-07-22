@@ -37,7 +37,7 @@ call vundle#begin()
     Plugin 'tpope/vim-surround'                 " Parentheses, brackets, quotes, XML tags, and more
 
     "-------------------=== Snippets support ===--------------------
-    Plugin 'garbas/vim-snipmate'                " Snippets manager
+    "Plugin 'garbas/vim-snipmate'                " Snippets manager
     Plugin 'MarcWeber/vim-addon-mw-utils'       " dependencies #1
     Plugin 'tomtom/tlib_vim'                    " dependencies #2
     Plugin 'honza/vim-snippets'                 " snippets repo
@@ -244,6 +244,7 @@ let g:syntastic_style_error_symbol='X'
 let g:syntastic_warning_symbol='x'
 let g:syntastic_style_warning_symbol='x'
 let g:syntastic_python_checkers=['flake8', 'pydocstyle', 'python']
+let g:syntastic_python_flake8_args='--ignore=E501,W503'
 
 " YouCompleteMe
 set completeopt-=preview
