@@ -1,5 +1,5 @@
 # install vim v8.2
-sh install_vim_v8.2.sh
+sh vim_v8.2_install.sh
 
 # install vimrc
 rm -r ~/.vim
