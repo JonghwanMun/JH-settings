@@ -8,7 +8,9 @@ git pull && git fetch
 # it's the nromal behaviour. That's no need to worry about it
 cd src
 make distclean
-cd ..
+#cd ..
+
+sudo apt-get install libncurses5-dev libncursesw5-dev -y
 
 export LDFLAGS="-fno-lto"
 ./configure --with-features=huge \
@@ -22,5 +24,6 @@ export LDFLAGS="-fno-lto"
             --enable-cscope \
             --prefix=/usr/local
             
+make VIMRUNTIMEDIR=/usr/local/share/vim/vim82
 make -j24
 sudo make install
