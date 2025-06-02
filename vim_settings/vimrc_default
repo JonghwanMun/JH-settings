@@ -11,6 +11,9 @@ set nows
 set hls
 set cursorline
 set incsearch
+set wrapscan
+set iskeyword+=-,-
+set nu  " show line numbers
 set ru
 set magic
 set nuw=5
